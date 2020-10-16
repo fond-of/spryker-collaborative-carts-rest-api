@@ -10,8 +10,9 @@
         <property name="companyUserreference" type="string" />
     </transfer>
 
-    <transfer name="RestCollaborativeCartsRequestAttributes">
+    <transfer name="RestCollaborativeCartsAttributes">
         <property name="action" type="string" />
+        <property name="cartId" type="string" />
     </transfer>
 
 </transfers>

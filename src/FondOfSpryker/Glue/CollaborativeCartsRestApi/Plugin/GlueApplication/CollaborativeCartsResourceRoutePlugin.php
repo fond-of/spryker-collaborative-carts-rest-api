@@ -1,8 +1,9 @@
 <?php
 
-namespace FondOfSpryker\Glue\CollaborativeCartsRestApi\Plugin;
+namespace FondOfSpryker\Glue\CollaborativeCartsRestApi\Plugin\GlueApplication;
 
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\CollaborativeCartsRestApiConfig;
+use Generated\Shared\Transfer\RestCollaborativeCartsAttributesTransfer;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRoutePluginInterface;
 use Spryker\Glue\Kernel\AbstractPlugin;
@@ -22,7 +23,7 @@ class CollaborativeCartsResourceRoutePlugin extends AbstractPlugin implements Re
         ResourceRouteCollectionInterface $resourceRouteCollection
     ): ResourceRouteCollectionInterface {
         $resourceRouteCollection
-            ->addPost(CollaborativeCartsRestApiConfig::ACTION_COLLABORATIVE_CART_POST, true);
+            ->addPost(CollaborativeCartsRestApiConfig::ACTION_COLLABORATIVE_CARTS_POST, true);
 
         return $resourceRouteCollection;
     }
@@ -60,6 +61,6 @@ class CollaborativeCartsResourceRoutePlugin extends AbstractPlugin implements Re
      */
     public function getResourceAttributesClassName(): string
     {
-        return RestCollaborativeCartsRequestAttributesTransfer::class;
+        return RestCollaborativeCartsAttributesTransfer::class;
     }
 }
