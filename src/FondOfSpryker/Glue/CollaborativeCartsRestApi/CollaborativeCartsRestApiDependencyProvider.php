@@ -4,6 +4,7 @@ namespace FondOfSpryker\Glue\CollaborativeCartsRestApi;
 
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\Dependency\Client\CollaborativeCartsRestApiToCollaborativeCartClientBridge;
 use Spryker\Glue\Kernel\AbstractBundleDependencyProvider;
+use Spryker\Glue\Kernel\Container;
 
 class CollaborativeCartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
 {

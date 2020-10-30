@@ -13,6 +13,10 @@
     <transfer name="RestCollaborativeCartsAttributes">
         <property name="action" type="string" />
         <property name="cartId" type="string" />
+        <property name="originalCustomerReference" type="string" />
+        <property name="originalCompanyReference" type="string" />
+        <property name="customerReference" type="string" />
+        <property name="companyUserReference" type="string" />
     </transfer>
 
 </transfers>

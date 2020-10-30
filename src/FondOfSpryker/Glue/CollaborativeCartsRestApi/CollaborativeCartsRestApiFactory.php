@@ -5,6 +5,10 @@ namespace FondOfSpryker\Glue\CollaborativeCartsRestApi;
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\Dependency\Client\CollaborativeCartsRestApiToCollaborativeCartClientInterface;
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\CollaborativeCart\CollaborativeCartCreator;
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\CollaborativeCart\CollaborativeCartCreatorInterface;
+use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\Mapper\CollaborativeCartMapper;
+use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\Mapper\CollaborativeCartMapperInterface;
+use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\RestResponseBuilder\CollaborativeCartRestResponseBuilder;
+use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\RestResponseBuilder\CollaborativeCartRestResponseBuilderInterface;
 use FondOfSpryker\Zed\CollaborativeCart\CollaborativeCartDependencyProvider;
 use Spryker\Glue\Kernel\AbstractFactory;
 
@@ -20,7 +24,9 @@ class CollaborativeCartsRestApiFactory extends AbstractFactory
     public function createCollaborativeCartCreator(): CollaborativeCartCreatorInterface
     {
         return new CollaborativeCartCreator(
-            $this->getCollaborativeCartClient()
+            $this->getClient(),
+            $this->getCollaborativeCartClient(),
+            $this->createCollaborativeCartRestResponseBuilder()
         );
     }
 
@@ -32,5 +38,26 @@ class CollaborativeCartsRestApiFactory extends AbstractFactory
     protected function getCollaborativeCartClient(): CollaborativeCartsRestApiToCollaborativeCartClientInterface
     {
         return $this->getProvidedDependency(CollaborativeCartsRestApiDependencyProvider::CLIENT_COLLABORATIVE_CART);
+    }
+
+    /**
+     * @return \FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\RestResponseBuilder\CollaborativeCartRestResponseBuilderInterface
+     */
+    public function createCollaborativeCartRestResponseBuilder(): CollaborativeCartRestResponseBuilderInterface
+    {
+        return new CollaborativeCartRestResponseBuilder(
+            $this->getResourceBuilder(),
+            $this->createCollaborativeCartMapper()
+        );
+    }
+
+    /**
+     * @return \FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\Mapper\CollaborativeCartMapperInterface
+     *
+     * @throws \Spryker\Glue\Kernel\Exception\Container\ContainerKeyNotFoundException
+     */
+    public function createCollaborativeCartMapper(): CollaborativeCartMapperInterface
+    {
+        return new CollaborativeCartMapper();
     }
 }

@@ -8,6 +8,7 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Spryker\Glue\Kernel\Controller\AbstractController;
 
 /**
+ * @method \FondOfSpryker\Client\CollaborativeCartsRestApi\CollaborativeCartsRestApiClientInterface getClient()
  * @method \FondOfSpryker\Glue\CollaborativeCartsRestApi\CollaborativeCartsRestApiFactory getFactory()
  */
 class CollaborativeCartsResourceController extends AbstractController
