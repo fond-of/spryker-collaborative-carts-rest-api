@@ -9,7 +9,6 @@ use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\Mapper\CollaborativeC
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\Mapper\CollaborativeCartMapperInterface;
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\RestResponseBuilder\CollaborativeCartRestResponseBuilder;
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\RestResponseBuilder\CollaborativeCartRestResponseBuilderInterface;
-use FondOfSpryker\Zed\CollaborativeCart\CollaborativeCartDependencyProvider;
 use Spryker\Glue\Kernel\AbstractFactory;
 
 /**
@@ -17,7 +16,6 @@ use Spryker\Glue\Kernel\AbstractFactory;
  */
 class CollaborativeCartsRestApiFactory extends AbstractFactory
 {
-
     /**
      * @return \FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\CollaborativeCart\CollaborativeCartCreatorInterface
      */
@@ -32,8 +30,6 @@ class CollaborativeCartsRestApiFactory extends AbstractFactory
 
     /**
      * @return \FondOfSpryker\Glue\CollaborativeCartsRestApi\Dependency\Client\CollaborativeCartsRestApiToCollaborativeCartClientInterface
-     *
-     * @throws \Spryker\Glue\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getCollaborativeCartClient(): CollaborativeCartsRestApiToCollaborativeCartClientInterface
     {
@@ -43,7 +39,7 @@ class CollaborativeCartsRestApiFactory extends AbstractFactory
     /**
      * @return \FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\RestResponseBuilder\CollaborativeCartRestResponseBuilderInterface
      */
-    public function createCollaborativeCartRestResponseBuilder(): CollaborativeCartRestResponseBuilderInterface
+    protected function createCollaborativeCartRestResponseBuilder(): CollaborativeCartRestResponseBuilderInterface
     {
         return new CollaborativeCartRestResponseBuilder(
             $this->getResourceBuilder(),
@@ -53,10 +49,8 @@ class CollaborativeCartsRestApiFactory extends AbstractFactory
 
     /**
      * @return \FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\Mapper\CollaborativeCartMapperInterface
-     *
-     * @throws \Spryker\Glue\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
-    public function createCollaborativeCartMapper(): CollaborativeCartMapperInterface
+    protected function createCollaborativeCartMapper(): CollaborativeCartMapperInterface
     {
         return new CollaborativeCartMapper();
     }

@@ -24,7 +24,7 @@ class CollaborativeCartsRestApiFactory extends AbstractFactory
      *
      * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
-    public function getZedRequestClient(): CollaborativeCartsRestApiToZedRequestClientInterface
+    protected function getZedRequestClient(): CollaborativeCartsRestApiToZedRequestClientInterface
     {
         return $this->getProvidedDependency(CollaborativeCartsRestApiDependencyProvider::CLIENT_ZED_REQUEST);
     }
