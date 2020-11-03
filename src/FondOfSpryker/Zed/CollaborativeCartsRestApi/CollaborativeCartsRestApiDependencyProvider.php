@@ -3,6 +3,7 @@
 namespace FondOfSpryker\Zed\CollaborativeCartsRestApi;
 
 use FondOfSpryker\Zed\CollaborativeCartsRestApi\Dependency\Facade\CollaborativeCartsRestApiToQuoteFacadeBridge;
+use FondOfSpryker\Zed\CompanyBusinessUnitsCartsRestApi\Dependency\Facade\CompanyBusinessUnitsCartsRestApiToCompanyBusinessUnitFacadeBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -33,11 +34,11 @@ class CollaborativeCartsRestApiDependencyProvider extends AbstractBundleDependen
      */
     public function addQuoteFacade(Container $container): Container
     {
-        $container->set(static::FACADE_QUOTE, function (Container $container) {
+        $container[static::FACADE_QUOTE] = static function (Container $container) {
             return new CollaborativeCartsRestApiToQuoteFacadeBridge(
                 $container->getLocator()->quote()->facade()
             );
-        });
+        };
 
         return $container;
     }
