@@ -3,6 +3,12 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
 
+    <transfer name="RestCollaborativeCartRequestAttributes">
+        <property name="newIdCustomer" type="int"/>
+        <property name="newCustomerReference" type="string"/>
+        <property name="quote" type="Quote"/>
+    </transfer>
+
     <transfer name="RestCollaborativeCartsResponseAttributes">
         <property name="originalCustomerReference" type="string" />
         <property name="originalCompanyReference" type="string" />
@@ -17,6 +23,10 @@
         <property name="originalCompanyReference" type="string" />
         <property name="customerReference" type="string" />
         <property name="companyUserReference" type="string" />
+    </transfer>
+
+    <transfer name="Quote">
+        <property name="uuid" type="string"/>
     </transfer>
 
 </transfers>

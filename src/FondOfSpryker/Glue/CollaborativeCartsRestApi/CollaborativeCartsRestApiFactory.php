@@ -2,7 +2,6 @@
 
 namespace FondOfSpryker\Glue\CollaborativeCartsRestApi;
 
-use FondOfSpryker\Glue\CollaborativeCartsRestApi\Dependency\Client\CollaborativeCartsRestApiToCollaborativeCartClientInterface;
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\CollaborativeCart\CollaborativeCartCreator;
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\CollaborativeCart\CollaborativeCartCreatorInterface;
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\Mapper\CollaborativeCartMapper;
@@ -23,17 +22,8 @@ class CollaborativeCartsRestApiFactory extends AbstractFactory
     {
         return new CollaborativeCartCreator(
             $this->getClient(),
-            $this->getCollaborativeCartClient(),
             $this->createCollaborativeCartRestResponseBuilder()
         );
-    }
-
-    /**
-     * @return \FondOfSpryker\Glue\CollaborativeCartsRestApi\Dependency\Client\CollaborativeCartsRestApiToCollaborativeCartClientInterface
-     */
-    protected function getCollaborativeCartClient(): CollaborativeCartsRestApiToCollaborativeCartClientInterface
-    {
-        return $this->getProvidedDependency(CollaborativeCartsRestApiDependencyProvider::CLIENT_COLLABORATIVE_CART);
     }
 
     /**

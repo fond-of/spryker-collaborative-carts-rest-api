@@ -2,8 +2,8 @@
 
 namespace FondOfSpryker\Client\CollaborativeCartsRestApi;
 
-use Generated\Shared\Transfer\QuoteResponseTransfer;
-use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\ClaimCartResponseTransfer;
+use Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**
@@ -16,13 +16,17 @@ class CollaborativeCartsRestApiClient extends AbstractClient implements Collabor
      *
      * @api
      *
-     * @param \FondOfSpryker\Client\CollaborativeCartsRestApi\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
      *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
+     * @return \Generated\Shared\Transfer\ClaimCartResponseTransfer
+     *
+     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
-    public function findQuoteByQuoteUuid(QuoteTransfer $quoteTransfer): QuoteResponseTransfer
-    {
-        return $this->getFactory()->createCollaborativeCartsRestApiStub()->findQuoteByQuoteUuid($quoteTransfer);
+    public function claimCart(
+        RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
+    ): ClaimCartResponseTransfer {
+        return $this->getFactory()
+            ->createCollaborativeCartsRestApiStub()
+            ->claimCart($restCollaborativeCartRequestAttributesTransfer);
     }
-
 }

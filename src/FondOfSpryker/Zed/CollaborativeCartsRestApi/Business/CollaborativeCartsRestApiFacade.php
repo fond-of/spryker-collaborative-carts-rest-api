@@ -2,8 +2,8 @@
 
 namespace FondOfSpryker\Zed\CollaborativeCartsRestApi\Business;
 
-use Generated\Shared\Transfer\QuoteResponseTransfer;
-use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\ClaimCartResponseTransfer;
+use Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -16,16 +16,14 @@ class CollaborativeCartsRestApiFacade extends AbstractFacade implements Collabor
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @param \Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
+     * @return \Generated\Shared\Transfer\ClaimCartResponseTransfer
      */
-    public function findQuoteByQuotetUuid(QuoteTransfer $quoteTransfer): QuoteResponseTransfer
-    {
+    public function claimCart(
+        RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
+    ): ClaimCartResponseTransfer {
         return $this->getFactory()
-            ->createQuoteReader()
-            ->findQuoteByQuoteUuid($quoteTransfer);
+            ->createCollaborativeCartCreator()
+            ->claimCart($restCollaborativeCartRequestAttributesTransfer);
     }
-
 }
-

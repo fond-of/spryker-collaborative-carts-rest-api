@@ -2,8 +2,8 @@
 
 namespace FondOfSpryker\Zed\CollaborativeCartsRestApi\Communication\Controller;
 
-use Generated\Shared\Transfer\QuoteResponseTransfer;
-use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\ClaimCartResponseTransfer;
+use Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
 /**
@@ -12,14 +12,13 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 class GatewayController extends AbstractGatewayController
 {
     /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
      *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
+     * @return \Generated\Shared\Transfer\ClaimCartResponseTransfer
      */
-    public function findQuoteByQuoteUuidAction(QuoteTransfer $quoteTransfer): QuoteResponseTransfer
-    {
-        return $this->getFacade()->findQuoteByQuotetUuid($quoteTransfer);
+    public function claimCartAction(
+        RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
+    ): ClaimCartResponseTransfer {
+        return $this->getFacade()->claimCart($restCollaborativeCartRequestAttributesTransfer);
     }
-
-
 }

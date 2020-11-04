@@ -2,8 +2,8 @@
 
 namespace FondOfSpryker\Zed\CollaborativeCartsRestApi;
 
+use FondOfSpryker\Zed\CollaborativeCartsRestApi\Dependency\Facade\CollaborativeCartsRestApiToCollaborativeCartFacadeBridge;
 use FondOfSpryker\Zed\CollaborativeCartsRestApi\Dependency\Facade\CollaborativeCartsRestApiToQuoteFacadeBridge;
-use FondOfSpryker\Zed\CompanyBusinessUnitsCartsRestApi\Dependency\Facade\CompanyBusinessUnitsCartsRestApiToCompanyBusinessUnitFacadeBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -13,6 +13,7 @@ use Spryker\Zed\Kernel\Container;
 class CollaborativeCartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
 {
     public const FACADE_QUOTE = 'FACADE_QUOTE';
+    public const FACADE_COLLABORATIVE_CART = 'FACADE_COLLABORATIVE_CART';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -23,6 +24,7 @@ class CollaborativeCartsRestApiDependencyProvider extends AbstractBundleDependen
     {
         $container = parent::provideBusinessLayerDependencies($container);
         $container = $this->addQuoteFacade($container);
+        $container = $this->addCollaborativeCartFacade($container);
 
         return $container;
     }
@@ -43,4 +45,19 @@ class CollaborativeCartsRestApiDependencyProvider extends AbstractBundleDependen
         return $container;
     }
 
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function addCollaborativeCartFacade(Container $container): Container
+    {
+        $container[static::FACADE_COLLABORATIVE_CART] = static function (Container $container) {
+            return new CollaborativeCartsRestApiToCollaborativeCartFacadeBridge(
+                $container->getLocator()->collaborativeCart()->facade()
+            );
+        };
+
+        return $container;
+    }
 }

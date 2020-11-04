@@ -2,17 +2,17 @@
 
 namespace FondOfSpryker\Client\CollaborativeCartsRestApi\Zed;
 
-use Generated\Shared\Transfer\QuoteResponseTransfer;
-use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\ClaimCartResponseTransfer;
+use Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer;
 
 interface CollaborativeCartsRestApiStubInterface
 {
     /**
-     * @param \FondOfSpryker\Client\CollaborativeCartsRestApi\Zed\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
      *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
+     * @return \Generated\Shared\Transfer\ClaimCartResponseTransfer
      */
-    public function findQuoteByQuoteUuid(QuoteTransfer $quoteTransfer): QuoteResponseTransfer;
-
-
+    public function claimCart(
+        RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
+    ): ClaimCartResponseTransfer;
 }

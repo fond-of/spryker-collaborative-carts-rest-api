@@ -1,19 +1,13 @@
 <?php
 
-namespace FondOfSpryker\Client\CollaborativeCartsRestApi;
+namespace FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\CollaborativeCart;
 
 use Generated\Shared\Transfer\ClaimCartResponseTransfer;
 use Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer;
 
-interface CollaborativeCartsRestApiClientInterface
+interface CollaborativeCartCreatorInterface
 {
     /**
-     * Specification:
-     * - take over the cart
-     * - Makes Zed request.
-     *
-     * @api
-     *
      * @param \Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
      *
      * @return \Generated\Shared\Transfer\ClaimCartResponseTransfer
