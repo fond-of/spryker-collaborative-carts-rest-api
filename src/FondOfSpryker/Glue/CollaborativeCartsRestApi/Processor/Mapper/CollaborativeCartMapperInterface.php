@@ -10,10 +10,9 @@ interface CollaborativeCartMapperInterface
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\Mapper\RestCollaborativeCartsAttributesTransfer
+     * @return \Generated\Shared\Transfer\RestCollaborativeCartsAttributesTransfer
      */
     public function mapQuoteTransferToResCollaborativeCartsAttributes(
         QuoteTransfer $quoteTransfer
     ): RestCollaborativeCartsAttributesTransfer;
-
 }

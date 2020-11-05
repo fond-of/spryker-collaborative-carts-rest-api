@@ -22,11 +22,11 @@ class CollaborativeCartsRestApiToZedRequestClientBridge implements Collaborative
     /**
      * @param string $url
      * @param \Spryker\Shared\Kernel\Transfer\TransferInterface $object
-     * @param array|int|null $requestOptions
+     * @param array|null $requestOptions
      *
      * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      */
-    public function call(string $url, TransferInterface $object, array $requestOptions = null)
+    public function call(string $url, TransferInterface $object, ?array $requestOptions = null)
     {
         return $this->zedRequestClient->call($url, $object, $requestOptions);
     }

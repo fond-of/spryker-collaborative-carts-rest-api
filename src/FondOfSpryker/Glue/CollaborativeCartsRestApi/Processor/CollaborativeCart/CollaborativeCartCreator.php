@@ -75,7 +75,7 @@ class CollaborativeCartCreator implements CollaborativeCartCreatorInterface
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      * @param \Generated\Shared\Transfer\RestCollaborativeCartsAttributesTransfer $restCollaborativeCartsAttributesTransfer
      *
-     * @return \Generated\Shared\Transfer\ClaimCartRequestTransfer
+     * @return \Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer
      */
     protected function createRestCollaborativeCartRequestAttributesTransfer(
         RestRequestInterface $restRequest,

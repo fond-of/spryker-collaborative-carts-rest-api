@@ -9,7 +9,7 @@ use Generated\Shared\Transfer\ClaimCartResponseTransfer;
 class CollaborativeCartsRestApiToCollaborativeCartFacadeBridge implements CollaborativeCartsRestApiToCollaborativeCartFacadeInterface
 {
     /**
-     * @var \Spryker\Zed\Quote\Business\QuoteFacadeInterface
+     * @var \FondOfSpryker\Zed\CollaborativeCart\Business\CollaborativeCartFacadeInterface
      */
     protected $collaborativeCartFacade;
 
