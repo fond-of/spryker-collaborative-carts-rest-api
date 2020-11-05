@@ -4,8 +4,8 @@ namespace FondOfSpryker\Zed\CollaborativeCartsRestApi\Communication\Controller;
 
 use Codeception\Test\Unit;
 use FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\CollaborativeCartsRestApiFacade;
-use Generated\Shared\Transfer\QuoteResponseTransfer;
-use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\ClaimCartResponseTransfer;
+use Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 class GatewayControllerTest extends Unit
@@ -16,14 +16,14 @@ class GatewayControllerTest extends Unit
     protected $collaborativeCartsRestApiFacadeMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer
      */
-    protected $quoteTransferMock;
+    protected $restCollaborativeCartRequestAttributesTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteResponseTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ClaimCartResponseTransfer
      */
-    protected $quoteResponseTransferMock;
+    protected $claimCartResponseTransferMock;
 
     /**
      * @var \FondOfSpryker\Zed\CollaborativeCartsRestApi\Communication\Controller\GatewayController
@@ -41,11 +41,11 @@ class GatewayControllerTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->quoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
+        $this->restCollaborativeCartRequestAttributesTransferMock = $this->getMockBuilder(RestCollaborativeCartRequestAttributesTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->quoteResponseTransferMock = $this->getMockBuilder(QuoteResponseTransfer::class)
+        $this->claimCartResponseTransferMock = $this->getMockBuilder(ClaimCartResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -70,25 +70,24 @@ class GatewayControllerTest extends Unit
     /**
      * @return void
      */
-    public function testFindQuoteByQuoteUuidAction(): void
+    public function testClaimCartAction(): void
     {
         $this->collaborativeCartsRestApiFacadeMock->expects(self::atLeastOnce())
-            ->method('findQuoteByQuotetUuid')
-            ->with($this->quoteTransferMock)
-            ->willReturn($this->quoteResponseTransferMock);
+            ->method('claimCart')
+            ->with($this->restCollaborativeCartRequestAttributesTransferMock)
+            ->willReturn($this->claimCartResponseTransferMock);
 
-        $quoteResponseTransfer = $this->gatewayController->findQuoteByQuoteUuidAction(
-            $this->quoteTransferMock
-        );
+        $claimCartResponseTransfer = $this->gatewayController
+            ->claimCartAction($this->restCollaborativeCartRequestAttributesTransferMock);
 
         $this->assertInstanceOf(
-            QuoteResponseTransfer::class,
-            $this->quoteResponseTransferMock
+            ClaimCartResponseTransfer::class,
+            $this->claimCartResponseTransferMock
         );
 
         $this::assertEquals(
-            $this->quoteResponseTransferMock,
-            $quoteResponseTransfer
+            $this->claimCartResponseTransferMock,
+            $claimCartResponseTransfer
         );
     }
 }

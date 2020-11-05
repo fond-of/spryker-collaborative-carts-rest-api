@@ -4,8 +4,8 @@ namespace FondOfSpryker\Client\CollaborativeCartsRestApi;
 
 use Codeception\Test\Unit;
 use FondOfSpryker\Client\CollaborativeCartsRestApi\Zed\CollaborativeCartsRestApiStubInterface;
-use Generated\Shared\Transfer\QuoteResponseTransfer;
-use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\ClaimCartResponseTransfer;
+use Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer;
 
 class CollaborativeCartsRestApiClientTest extends Unit
 {
@@ -25,14 +25,14 @@ class CollaborativeCartsRestApiClientTest extends Unit
     protected $collaborativeCartsRestApiStubMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer
      */
-    protected $quoteTransferMock;
+    protected $restCollaborativeCartRequestAttributesTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteResponseTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ClaimCartResponseTransfer
      */
-    protected $quoteResponseTransferMock;
+    protected $claimCartResponseTransferMock;
 
     /**
      * @return void
@@ -49,11 +49,11 @@ class CollaborativeCartsRestApiClientTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->quoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
+        $this->restCollaborativeCartRequestAttributesTransferMock = $this->getMockBuilder(RestCollaborativeCartRequestAttributesTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->quoteResponseTransferMock = $this->getMockBuilder(QuoteResponseTransfer::class)
+        $this->claimCartResponseTransferMock = $this->getMockBuilder(ClaimCartResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -64,29 +64,28 @@ class CollaborativeCartsRestApiClientTest extends Unit
     /**
      * @return void
      */
-    public function testFindQuoteByQuoteUuid(): void
+    public function testClaimCart(): void
     {
         $this->collaborativeCartsRestApiFactoryMock->expects(self::atLeastOnce())
             ->method('createCollaborativeCartsRestApiStub')
             ->willReturn($this->collaborativeCartsRestApiStubMock);
 
         $this->collaborativeCartsRestApiStubMock->expects(self::atLeastOnce())
-            ->method('findQuoteByQuoteUuid')
-            ->with($this->quoteTransferMock)
-            ->willReturn($this->quoteResponseTransferMock);
+            ->method('claimCart')
+            ->with($this->restCollaborativeCartRequestAttributesTransferMock)
+            ->willReturn($this->claimCartResponseTransferMock);
 
-        $quoteResponseTransfer = $this->collaborativeCartsRestApiClient->findQuoteByQuoteUuid(
-            $this->quoteTransferMock
-        );
+        $claimCartResponseTransfer = $this->collaborativeCartsRestApiClient
+            ->claimCart($this->restCollaborativeCartRequestAttributesTransferMock);
 
         $this->assertInstanceOf(
-            QuoteResponseTransfer::class,
-            $quoteResponseTransfer
+            ClaimCartResponseTransfer::class,
+            $claimCartResponseTransfer
         );
 
         $this->assertEquals(
-            $this->quoteResponseTransferMock,
-            $quoteResponseTransfer
+            $this->claimCartResponseTransferMock,
+            $claimCartResponseTransfer
         );
     }
 }

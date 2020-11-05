@@ -50,10 +50,14 @@ class CollaborativeCartCreator implements CollaborativeCartCreatorInterface
                 ->createMissingCartIdErrorResponse();
         }
 
-        $claimCartResponseTransfer = $this->collaborativeCartsRestApiClient
-            ->claimCart(
-                $this->createRestCollaborativeCartRequestAttributesTransfer($restRequest, $restCollaborativeCartsAttributesTransfer)
+        $restCollaborativeCartRequestAttributesTransfer = $this
+            ->createRestCollaborativeCartRequestAttributesTransfer(
+                $restRequest,
+                $restCollaborativeCartsAttributesTransfer
             );
+
+        $claimCartResponseTransfer = $this->collaborativeCartsRestApiClient
+            ->claimCart($restCollaborativeCartRequestAttributesTransfer);
 
         if ($claimCartResponseTransfer->getIsSuccess() === false) {
             return $this->collaborativeCartRestResponseBuilder

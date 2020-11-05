@@ -25,6 +25,7 @@ class CollaborativeCartCreator implements CollaborativeCartCreatorInterface
     protected $quoteFacade;
 
     /**
+     * @param \FondOfSpryker\Zed\CollaborativeCartsRestApi\Dependency\Facade\CollaborativeCartsRestApiToCollaborativeCartFacadeInterface $collaborativeCartFacade
      * @param \FondOfSpryker\Zed\CollaborativeCartsRestApi\Dependency\Facade\CollaborativeCartsRestApiToQuoteFacadeInterface $quoteFacade
      */
     public function __construct(
@@ -52,12 +53,12 @@ class CollaborativeCartCreator implements CollaborativeCartCreatorInterface
                 ->setError(self::ERROR_MESSAGE_COLLABORATIVE_CART_NOT_FOUND);
         }
 
-        return $this->collaborativeCartFacade->claimCart(
-            $this->createClaimCartRequestTransfer(
-                $restCollaborativeCartRequestAttributesTransfer,
-                $quoteResponseTransfer->getQuoteTransfer()
-            )
+        $claimCartRequestTransfer = $this->createClaimCartRequestTransfer(
+            $restCollaborativeCartRequestAttributesTransfer,
+            $quoteResponseTransfer->getQuoteTransfer()
         );
+
+        return $this->collaborativeCartFacade->claimCart($claimCartRequestTransfer);
     }
 
     /**

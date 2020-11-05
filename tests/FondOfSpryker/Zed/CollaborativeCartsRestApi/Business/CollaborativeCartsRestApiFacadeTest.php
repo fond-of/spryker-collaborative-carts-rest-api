@@ -3,9 +3,9 @@
 namespace FondOfSpryker\Zed\CollaborativeCartsRestApi\Business;
 
 use Codeception\Test\Unit;
-use FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\Quote\QuoteReaderInterface;
-use Generated\Shared\Transfer\QuoteResponseTransfer;
-use Generated\Shared\Transfer\QuoteTransfer;
+use FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\CollaborativeCart\CollaborativeCartCreatorInterface;
+use Generated\Shared\Transfer\ClaimCartResponseTransfer;
+use Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer;
 
 class CollaborativeCartsRestApiFacadeTest extends Unit
 {
@@ -15,19 +15,19 @@ class CollaborativeCartsRestApiFacadeTest extends Unit
     protected $collaborativeCartsRestApiBusinessFactoryMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\Quote\QuoteReaderInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\CollaborativeCart\CollaborativeCartCreatorInterface
      */
-    protected $quoteReaderMock;
+    protected $collaborativeCartCreatorMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer
      */
-    protected $quoteTransferMock;
+    protected $restCollaborativeCartRequestAttributesTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\QuoteResponseTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ClaimCartResponseTransfer
      */
-    protected $quoteResponseTransferMock;
+    protected $claimCartResponseTransferMock;
 
     /**
      * @var \FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\CollaborativeCartsRestApiFacade
@@ -45,15 +45,15 @@ class CollaborativeCartsRestApiFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->quoteReaderMock = $this->getMockBuilder(QuoteReaderInterface::class)
+        $this->collaborativeCartCreatorMock = $this->getMockBuilder(CollaborativeCartCreatorInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->quoteTransferMock = $this->getMockBuilder(QuoteTransfer::class)
+        $this->restCollaborativeCartRequestAttributesTransferMock = $this->getMockBuilder(RestCollaborativeCartRequestAttributesTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->quoteResponseTransferMock = $this->getMockBuilder(QuoteResponseTransfer::class)
+        $this->claimCartResponseTransferMock = $this->getMockBuilder(ClaimCartResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -64,28 +64,28 @@ class CollaborativeCartsRestApiFacadeTest extends Unit
     /**
      * @return void
      */
-    public function testFindQuoteByQuotetUuid(): void
+    public function testClaimCart(): void
     {
         $this->collaborativeCartsRestApiBusinessFactoryMock->expects($this->atLeastOnce())
-            ->method('createQuoteReader')
-            ->willReturn($this->quoteReaderMock);
+            ->method('createCollaborativeCartCreator')
+            ->willReturn($this->collaborativeCartCreatorMock);
 
-        $this->quoteReaderMock->expects($this->atLeastOnce())
-            ->method('findQuoteByQuoteUuid')
-            ->with($this->quoteTransferMock)
-            ->willReturn($this->quoteResponseTransferMock);
+        $this->collaborativeCartCreatorMock->expects($this->atLeastOnce())
+            ->method('claimCart')
+            ->with($this->restCollaborativeCartRequestAttributesTransferMock)
+            ->willReturn($this->claimCartResponseTransferMock);
 
-        $quoteResponseTransfer = $this->collaborativeCartsRestApiFacade
-            ->findQuoteByQuotetUuid($this->quoteTransferMock);
+        $claimCartResponseTransfer = $this->collaborativeCartsRestApiFacade
+            ->claimCart($this->restCollaborativeCartRequestAttributesTransferMock);
 
         $this->assertInstanceOf(
-            QuoteResponseTransfer::class,
-            $quoteResponseTransfer
+            ClaimCartResponseTransfer::class,
+            $claimCartResponseTransfer
         );
 
         $this->assertEquals(
-            $this->quoteResponseTransferMock,
-            $quoteResponseTransfer
+            $this->claimCartResponseTransferMock,
+            $claimCartResponseTransfer
         );
     }
 }

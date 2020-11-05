@@ -4,7 +4,6 @@ namespace FondOfSpryker\Glue\CollaborativeCartsRestApi;
 
 use Codeception\Test\Unit;
 use FondOfSpryker\Client\CollaborativeCartsRestApi\CollaborativeCartsRestApiClient;
-use FondOfSpryker\Glue\CollaborativeCartsRestApi\Dependency\Client\CollaborativeCartsRestApiToCollaborativeCartClientInterface;
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\CollaborativeCart\CollaborativeCartCreatorInterface;
 use Spryker\Client\Kernel\AbstractClient;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
@@ -40,10 +39,6 @@ class CollaborativeCartsRestApiFactoryTest extends Unit
         parent::_before();
 
         $this->clientMock = $this->getMockBuilder(CollaborativeCartsRestApiClient::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->collaborativeCartsRestApiToCollaborativeCartClientMock = $this->getMockBuilder(CollaborativeCartsRestApiToCollaborativeCartClientInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -106,18 +101,7 @@ class CollaborativeCartsRestApiFactoryTest extends Unit
      */
     public function testCreateCollaborativeCartCreator(): void
     {
-        $this->containerMock->expects($this->atLeastOnce())
-            ->method('has')
-            ->willReturn(true);
-
-        $this->containerMock->expects($this->atLeastOnce())
-            ->method('get')
-            ->withConsecutive(
-                [CollaborativeCartsRestApiDependencyProvider::CLIENT_COLLABORATIVE_CART]
-            )->willReturnOnConsecutiveCalls(
-                $this->collaborativeCartsRestApiToCollaborativeCartClientMock
-            );
-        self::assertInstanceOf(
+        $this->assertInstanceOf(
             CollaborativeCartCreatorInterface::class,
             $this->collaborativeCartsRestApiFactory->createCollaborativeCartCreator()
         );
