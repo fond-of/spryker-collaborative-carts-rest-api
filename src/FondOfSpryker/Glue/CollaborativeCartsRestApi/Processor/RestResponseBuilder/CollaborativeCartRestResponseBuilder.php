@@ -26,7 +26,6 @@ class CollaborativeCartRestResponseBuilder implements CollaborativeCartRestRespo
     protected $restResourceBuilder;
 
     /**
-     * CollaborativeCartRestResponseBuilder constructor.
      *
      * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
      * @param \FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\Mapper\CollaborativeCartMapperInterface $collaborativeCartMapper
@@ -34,8 +33,7 @@ class CollaborativeCartRestResponseBuilder implements CollaborativeCartRestRespo
     public function __construct(
         RestResourceBuilderInterface $restResourceBuilder,
         CollaborativeCartMapperInterface $collaborativeCartMapper
-    )
-    {
+    ) {
         $this->restResourceBuilder = $restResourceBuilder;
         $this->collaborativeCartMapper = $collaborativeCartMapper;
     }
@@ -70,14 +68,14 @@ class CollaborativeCartRestResponseBuilder implements CollaborativeCartRestRespo
     {
         $restCollaborativeCartsAttributesTransfer = $this->collaborativeCartMapper
             ->mapQuoteTransferToResCollaborativeCartsAttributes($quoteTransfer);
+
         $restCollaborativeCartsAttributesTransfer->setAction($action);
-        $collaborativeCartResource = $this->restResourceBuilder->createRestResource(
+
+        return $this->restResourceBuilder->createRestResource(
             CollaborativeCartsRestApiConfig::RESOURCE_COLLABORATIVE_CARTS,
             $quoteTransfer->getUuid(),
             $restCollaborativeCartsAttributesTransfer
         );
-
-        return $collaborativeCartResource;
     }
 
     /**

@@ -7,9 +7,6 @@ use FondOfSpryker\Zed\CollaborativeCartsRestApi\Dependency\Facade\CollaborativeC
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
-/**
- * @method \FondOfSpryker\Zed\CollaborativeCartsRestApi\CollaborativeCartsRestApiConfig getConfig()
- */
 class CollaborativeCartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
 {
     public const FACADE_QUOTE = 'FACADE_QUOTE';
@@ -23,6 +20,7 @@ class CollaborativeCartsRestApiDependencyProvider extends AbstractBundleDependen
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
+
         $container = $this->addQuoteFacade($container);
         $container = $this->addCollaborativeCartFacade($container);
 

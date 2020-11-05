@@ -19,5 +19,5 @@ class CollaborativeCartsRestApiConfig
 
     public const RESPONSE_DETAIL_COLLABORATIVE_CARTS_UNKNOWN_ERROR = 'Unknown error.';
     public const RESPONSE_DETAIL_COLLABORATIVE_CARTS_NOT_FOUND = 'Could not find quote to claim.';
-    public const RESPONSE_DETAIL_COLLABORATIVE_CARTS_MISSING_CART_ID = 'MIssing cart id';
+    public const RESPONSE_DETAIL_COLLABORATIVE_CARTS_MISSING_CART_ID = 'Missing cart id';
 }
