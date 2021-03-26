@@ -29,7 +29,6 @@ class CollaborativeCartsRestApiStub implements CollaborativeCartsRestApiStubInte
     public function claimCart(
         RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
     ): ClaimCartResponseTransfer {
-
         /** @var \Generated\Shared\Transfer\ClaimCartResponseTransfer $claimCartResponseTransfer */
         $claimCartResponseTransfer = $this->zedRequestClient->call(
             '/collaborative-carts-rest-api/gateway/claim-cart',

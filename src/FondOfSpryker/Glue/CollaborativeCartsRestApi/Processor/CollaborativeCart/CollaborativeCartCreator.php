@@ -44,7 +44,6 @@ class CollaborativeCartCreator implements CollaborativeCartCreatorInterface
         RestRequestInterface $restRequest,
         RestCollaborativeCartsAttributesTransfer $restCollaborativeCartsAttributesTransfer
     ): RestResponseInterface {
-
         if ($restCollaborativeCartsAttributesTransfer->getCartId() === null) {
             return $this->collaborativeCartRestResponseBuilder
                 ->createMissingCartIdErrorResponse();

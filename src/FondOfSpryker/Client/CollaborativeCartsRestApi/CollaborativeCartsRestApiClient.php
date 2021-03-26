@@ -18,9 +18,9 @@ class CollaborativeCartsRestApiClient extends AbstractClient implements Collabor
      *
      * @param \Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
      *
-     * @return \Generated\Shared\Transfer\ClaimCartResponseTransfer
-     *
      * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
+     *
+     * @return \Generated\Shared\Transfer\ClaimCartResponseTransfer
      */
     public function claimCart(
         RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer

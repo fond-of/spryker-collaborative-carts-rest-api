@@ -44,7 +44,6 @@ class CollaborativeCartCreator implements CollaborativeCartCreatorInterface
     public function claimCart(
         RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
     ): ClaimCartResponseTransfer {
-
         $quoteResponseTransfer = $this->getQuote($restCollaborativeCartRequestAttributesTransfer);
 
         if ($quoteResponseTransfer->getIsSuccessful() === false) {
@@ -85,7 +84,6 @@ class CollaborativeCartCreator implements CollaborativeCartCreatorInterface
     protected function getQuote(
         RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
     ): QuoteResponseTransfer {
-
         return $this->quoteFacade
             ->findQuoteByUuid($restCollaborativeCartRequestAttributesTransfer->getQuote());
     }

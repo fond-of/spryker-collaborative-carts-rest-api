@@ -11,8 +11,6 @@ class CollaborativeCartsRestApiFactory extends AbstractFactory
 {
     /**
      * @return \FondOfSpryker\Client\CollaborativeCartsRestApi\Zed\CollaborativeCartsRestApiStubInterface
-     *
-     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function createCollaborativeCartsRestApiStub(): CollaborativeCartsRestApiStubInterface
     {
@@ -21,8 +19,6 @@ class CollaborativeCartsRestApiFactory extends AbstractFactory
 
     /**
      * @return \FondOfSpryker\Client\CollaborativeCartsRestApi\Dependency\Client\CollaborativeCartsRestApiToZedRequestClientInterface
-     *
-     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getZedRequestClient(): CollaborativeCartsRestApiToZedRequestClientInterface
     {

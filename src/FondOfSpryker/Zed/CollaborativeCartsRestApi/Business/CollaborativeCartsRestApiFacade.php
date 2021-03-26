@@ -17,6 +17,7 @@ class CollaborativeCartsRestApiFacade extends AbstractFacade implements Collabor
      * @api
      *
      * @param \Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
+     *
      * @return \Generated\Shared\Transfer\ClaimCartResponseTransfer
      */
     public function claimCart(

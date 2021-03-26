@@ -9,12 +9,12 @@ class CollaborativeCartMapper implements CollaborativeCartMapperInterface
 {
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
      * @return \Generated\Shared\Transfer\RestCollaborativeCartsAttributesTransfer
      */
     public function mapQuoteTransferToResCollaborativeCartsAttributes(
         QuoteTransfer $quoteTransfer
     ): RestCollaborativeCartsAttributesTransfer {
-
         return (new RestCollaborativeCartsAttributesTransfer())
             ->setCartId($quoteTransfer->getIdQuote())
             ->setCustomerReference($quoteTransfer->getCustomer()->getCustomerReference())
@@ -22,5 +22,4 @@ class CollaborativeCartMapper implements CollaborativeCartMapperInterface
             ->setCompanyUserReference($quoteTransfer->getCompanyUserReference())
             ->setOriginalCompanyReference($quoteTransfer->getOriginalCompanyUserReference());
     }
-
 }

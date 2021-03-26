@@ -3,7 +3,6 @@
 namespace FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\RestResponseBuilder;
 
 use Generated\Shared\Transfer\QuoteTransfer;
-use Generated\Shared\Transfer\ShareDetailTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 
 interface CollaborativeCartRestResponseBuilderInterface
@@ -37,5 +36,4 @@ interface CollaborativeCartRestResponseBuilderInterface
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function createMissingCartIdErrorResponse(): RestResponseInterface;
-
 }
