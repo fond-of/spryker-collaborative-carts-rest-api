@@ -31,7 +31,7 @@ class CollaborativeCartsRestApiStub implements CollaborativeCartsRestApiStubInte
     public function claimCart(
         RestClaimCartRequestTransfer $restClaimCartRequestTransfer
     ): RestClaimCartResponseTransfer {
-        /** @var \Generated\Shared\Transfer\RestClaimCartResponseTransfer $claimCartResponseTransfer */
+        /** @var \Generated\Shared\Transfer\RestClaimCartResponseTransfer $restClaimCartResponseTransfer */
         $restClaimCartResponseTransfer = $this->zedRequestClient->call(
             '/collaborative-carts-rest-api/gateway/claim-cart',
             $restClaimCartRequestTransfer
@@ -47,7 +47,7 @@ class CollaborativeCartsRestApiStub implements CollaborativeCartsRestApiStubInte
      */
     public function releaseCart(RestReleaseCartRequestTransfer $restReleaseCartRequestTransfer): RestReleaseCartResponseTransfer
     {
-        /** @var \Generated\Shared\Transfer\RestReleaseCartResponseTransfer $releaseCartResponseTransfer */
+        /** @var \Generated\Shared\Transfer\RestReleaseCartResponseTransfer $restReleaseCartResponseTransfer */
         $restReleaseCartResponseTransfer = $this->zedRequestClient->call(
             '/collaborative-carts-rest-api/gateway/release-cart',
             $restReleaseCartRequestTransfer

@@ -60,6 +60,9 @@ class CollaborativeCartsRestApiFactory extends AbstractFactory
         return new RestCollaborativeCartsResponseAttributesMapper();
     }
 
+    /**
+     * @return \FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\Claimer\CartClaimerInterface
+     */
     protected function createCartClaimer(): CartClaimerInterface
     {
         return new CartClaimer(
