@@ -2,29 +2,6 @@
 <transfers xmlns="spryker:transfer-01"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
-
-    <!--<transfer name="RestCollaborativeCartRequestAttributes">
-        <property name="newIdCustomer" type="int"/>
-        <property name="newCustomerReference" type="string"/>
-        <property name="quote" type="Quote"/>
-    </transfer>
-
-    <transfer name="RestCollaborativeCartsResponseAttributes">
-        <property name="originalCustomerReference" type="string" />
-        <property name="originalCompanyReference" type="string" />
-        <property name="customerReference" type="string" />
-        <property name="companyUserreference" type="string" />
-    </transfer>
-
-    <transfer name="RestCollaborativeCartsAttributes">
-        <property name="action" type="string" />
-        <property name="cartId" type="string" />
-        <property name="originalCustomerReference" type="string" />
-        <property name="originalCompanyReference" type="string" />
-        <property name="customerReference" type="string" />
-        <property name="companyUserReference" type="string" />
-    </transfer>-->
-
     <transfer name="RestReleaseCartRequest">
         <property name="quoteUuid" type="string" />
         <property name="currentCustomerReference" type="string" />
@@ -61,7 +38,7 @@
         <property name="action" type="string" />
         <property name="cartId" type="string" />
         <property name="originalCustomerReference" type="string" />
-        <property name="originalCompanyReference" type="string" />
+        <property name="originalCompanyUserReference" type="string" />
         <property name="customerReference" type="string" />
         <property name="companyUserReference" type="string" />
     </transfer>
@@ -72,26 +49,24 @@
 
     <transfer name="ReleaseCartRequest">
         <property name="idQuote" type="int"/>
-        <property name="currentIdCustomer" type="int"/>
-        <property name="currentCustomerReference" type="string"/>
     </transfer>
 
     <transfer name="ReleaseCartResponse">
         <property name="isSuccess" type="bool"/>
-        <property name="error" type="string"/>
         <property name="quote" type="Quote"/>
     </transfer>
 
     <transfer name="ClaimCartRequest">
         <property name="idQuote" type="int"/>
-        <property name="newIdCustomer" type="int"/>
-        <property name="newCustomerReference" type="string"/>
     </transfer>
 
     <transfer name="ClaimCartResponse">
         <property name="isSuccess" type="bool"/>
-        <property name="error" type="string"/>
         <property name="quote" type="Quote"/>
     </transfer>
 
+    <transfer name="RestCartsAttributes">
+        <property name="originalCustomerReference" type="string" />
+        <property name="originalCompanyUserReference" type="string" />
+    </transfer>
 </transfers>
