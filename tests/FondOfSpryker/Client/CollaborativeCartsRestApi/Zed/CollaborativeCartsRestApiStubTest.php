@@ -4,8 +4,10 @@ namespace FondOfSpryker\Client\CollaborativeCartsRestApi\Zed;
 
 use Codeception\Test\Unit;
 use FondOfSpryker\Client\CollaborativeCartsRestApi\Dependency\Client\CollaborativeCartsRestApiToZedRequestClientInterface;
-use Generated\Shared\Transfer\ClaimCartResponseTransfer;
-use Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer;
+use Generated\Shared\Transfer\RestClaimCartRequestTransfer;
+use Generated\Shared\Transfer\RestClaimCartResponseTransfer;
+use Generated\Shared\Transfer\RestReleaseCartRequestTransfer;
+use Generated\Shared\Transfer\RestReleaseCartResponseTransfer;
 
 class CollaborativeCartsRestApiStubTest extends Unit
 {
@@ -20,14 +22,24 @@ class CollaborativeCartsRestApiStubTest extends Unit
     protected $zedRequestClientMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestClaimCartRequestTransfer
      */
-    protected $restCollaborativeCartRequestAttributesTransferMock;
+    protected $restClaimCartRequestTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ClaimCartResponseTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestClaimCartResponseTransfer
      */
-    protected $claimCartResponseTransferMock;
+    protected $restClaimCartResponseTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\RestReleaseCartRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restReleaseCartRequestTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\RestReleaseCartResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restReleaseCartResponseTransferMock;
 
     /**
      * @return void
@@ -40,11 +52,19 @@ class CollaborativeCartsRestApiStubTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restCollaborativeCartRequestAttributesTransferMock = $this->getMockBuilder(RestCollaborativeCartRequestAttributesTransfer::class)
+        $this->restClaimCartRequestTransferMock = $this->getMockBuilder(RestClaimCartRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->claimCartResponseTransferMock = $this->getMockBuilder(ClaimCartResponseTransfer::class)
+        $this->restClaimCartResponseTransferMock = $this->getMockBuilder(RestClaimCartResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restReleaseCartRequestTransferMock = $this->getMockBuilder(RestReleaseCartRequestTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restReleaseCartResponseTransferMock = $this->getMockBuilder(RestReleaseCartResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -56,24 +76,40 @@ class CollaborativeCartsRestApiStubTest extends Unit
      */
     public function testClaimCart(): void
     {
-        $this->zedRequestClientMock->expects(self::atLeastOnce())
+        $this->zedRequestClientMock->expects(static::atLeastOnce())
             ->method('call')
             ->with(
                 '/collaborative-carts-rest-api/gateway/claim-cart',
-                $this->restCollaborativeCartRequestAttributesTransferMock
-            )->willReturn($this->claimCartResponseTransferMock);
+                $this->restClaimCartRequestTransferMock
+            )->willReturn($this->restClaimCartResponseTransferMock);
 
-        $claimCartResponseTransfer = $this->collaborativeCartsRestApiStub
-            ->claimCart($this->restCollaborativeCartRequestAttributesTransferMock);
-
-        $this->assertInstanceOf(
-            ClaimCartResponseTransfer::class,
-            $claimCartResponseTransfer
-        );
+        $restClaimCartResponseTransfer = $this->collaborativeCartsRestApiStub
+            ->claimCart($this->restClaimCartRequestTransferMock);
 
         $this->assertEquals(
-            $this->claimCartResponseTransferMock,
-            $claimCartResponseTransfer
+            $this->restClaimCartResponseTransferMock,
+            $restClaimCartResponseTransfer
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testReleaseCart(): void
+    {
+        $this->zedRequestClientMock->expects(static::atLeastOnce())
+            ->method('call')
+            ->with(
+                '/collaborative-carts-rest-api/gateway/release-cart',
+                $this->restReleaseCartRequestTransferMock
+            )->willReturn($this->restReleaseCartResponseTransferMock);
+
+        $restReleaseCartResponseTransfer = $this->collaborativeCartsRestApiStub
+            ->releaseCart($this->restReleaseCartRequestTransferMock);
+
+        $this->assertEquals(
+            $this->restReleaseCartResponseTransferMock,
+            $restReleaseCartResponseTransfer
         );
     }
 }

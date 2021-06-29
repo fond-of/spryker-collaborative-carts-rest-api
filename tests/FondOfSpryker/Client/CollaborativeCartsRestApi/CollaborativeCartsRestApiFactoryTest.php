@@ -4,6 +4,7 @@ namespace FondOfSpryker\Client\CollaborativeCartsRestApi;
 
 use Codeception\Test\Unit;
 use FondOfSpryker\Client\CollaborativeCartsRestApi\Dependency\Client\CollaborativeCartsRestApiToZedRequestClientInterface;
+use FondOfSpryker\Client\CollaborativeCartsRestApi\Zed\CollaborativeCartsRestApiStub;
 use FondOfSpryker\Client\CollaborativeCartsRestApi\Zed\CollaborativeCartsRestApiStubInterface;
 use Spryker\Client\Kernel\Container;
 
@@ -58,7 +59,7 @@ class CollaborativeCartsRestApiFactoryTest extends Unit
             ->willReturn($this->zedRequestClientMock);
 
         $this->assertInstanceOf(
-            CollaborativeCartsRestApiStubInterface::class,
+            CollaborativeCartsRestApiStub::class,
             $this->collaborativeCartsRestApiFactory->createCollaborativeCartsRestApiStub()
         );
     }

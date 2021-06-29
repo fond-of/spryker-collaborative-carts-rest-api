@@ -18,9 +18,8 @@ class CollaborativeCartsRestApiDependencyProvider extends AbstractDependencyProv
     public function provideServiceLayerDependencies(Container $container): Container
     {
         $container = parent::provideServiceLayerDependencies($container);
-        $container = $this->addZedRequestClient($container);
 
-        return $container;
+        return $this->addZedRequestClient($container);
     }
 
     /**
@@ -30,7 +29,7 @@ class CollaborativeCartsRestApiDependencyProvider extends AbstractDependencyProv
      */
     protected function addZedRequestClient(Container $container): Container
     {
-        $container->set(static::CLIENT_ZED_REQUEST, function (Container $container) {
+        $container->set(static::CLIENT_ZED_REQUEST, static function (Container $container) {
             return new CollaborativeCartsRestApiToZedRequestClientBridge(
                 $container->getLocator()->zedRequest()->client()
             );

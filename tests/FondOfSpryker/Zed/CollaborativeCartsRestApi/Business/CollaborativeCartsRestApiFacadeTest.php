@@ -3,36 +3,54 @@
 namespace FondOfSpryker\Zed\CollaborativeCartsRestApi\Business;
 
 use Codeception\Test\Unit;
-use FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\CollaborativeCart\CollaborativeCartCreatorInterface;
-use Generated\Shared\Transfer\ClaimCartResponseTransfer;
-use Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer;
+use FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\Claimer\CartClaimerInterface;
+use FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\Releaser\CartReleaserInterface;
+use Generated\Shared\Transfer\RestClaimCartRequestTransfer;
+use Generated\Shared\Transfer\RestClaimCartResponseTransfer;
+use Generated\Shared\Transfer\RestReleaseCartRequestTransfer;
+use Generated\Shared\Transfer\RestReleaseCartResponseTransfer;
 
 class CollaborativeCartsRestApiFacadeTest extends Unit
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\CollaborativeCartsRestApiBusinessFactory
      */
-    protected $collaborativeCartsRestApiBusinessFactoryMock;
+    protected $businessFactoryMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\CollaborativeCart\CollaborativeCartCreatorInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\Claimer\CartClaimerInterface
      */
-    protected $collaborativeCartCreatorMock;
+    protected $cartClaimerMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestClaimCartRequestTransfer
      */
-    protected $restCollaborativeCartRequestAttributesTransferMock;
+    protected $restClaimCartRequestTransferMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ClaimCartResponseTransfer
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\RestClaimCartResponseTransfer
      */
-    protected $claimCartResponseTransferMock;
+    protected $restClaimCartResponseTransferMock;
+
+    /**
+     * @var \FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\Releaser\CartReleaserInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $cartReleaserMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\RestReleaseCartRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restReleaseCartRequestTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\RestReleaseCartResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $restReleaseCartResponseTransferMock;
 
     /**
      * @var \FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\CollaborativeCartsRestApiFacade
      */
-    protected $collaborativeCartsRestApiFacade;
+    protected $facade;
 
     /**
      * @return void
@@ -41,24 +59,36 @@ class CollaborativeCartsRestApiFacadeTest extends Unit
     {
         parent::_before();
 
-        $this->collaborativeCartsRestApiBusinessFactoryMock = $this->getMockBuilder(CollaborativeCartsRestApiBusinessFactory::class)
+        $this->businessFactoryMock = $this->getMockBuilder(CollaborativeCartsRestApiBusinessFactory::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->collaborativeCartCreatorMock = $this->getMockBuilder(CollaborativeCartCreatorInterface::class)
+        $this->cartClaimerMock = $this->getMockBuilder(CartClaimerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->restCollaborativeCartRequestAttributesTransferMock = $this->getMockBuilder(RestCollaborativeCartRequestAttributesTransfer::class)
+        $this->restClaimCartRequestTransferMock = $this->getMockBuilder(RestClaimCartRequestTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->claimCartResponseTransferMock = $this->getMockBuilder(ClaimCartResponseTransfer::class)
+        $this->restClaimCartResponseTransferMock = $this->getMockBuilder(RestClaimCartResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->collaborativeCartsRestApiFacade = new CollaborativeCartsRestApiFacade();
-        $this->collaborativeCartsRestApiFacade->setFactory($this->collaborativeCartsRestApiBusinessFactoryMock);
+        $this->cartReleaserMock = $this->getMockBuilder(CartReleaserInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restReleaseCartRequestTransferMock = $this->getMockBuilder(RestReleaseCartRequestTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->restReleaseCartResponseTransferMock = $this->getMockBuilder(RestReleaseCartResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->facade = new CollaborativeCartsRestApiFacade();
+        $this->facade->setFactory($this->businessFactoryMock);
     }
 
     /**
@@ -66,26 +96,38 @@ class CollaborativeCartsRestApiFacadeTest extends Unit
      */
     public function testClaimCart(): void
     {
-        $this->collaborativeCartsRestApiBusinessFactoryMock->expects($this->atLeastOnce())
-            ->method('createCollaborativeCartCreator')
-            ->willReturn($this->collaborativeCartCreatorMock);
+        $this->businessFactoryMock->expects(static::atLeastOnce())
+            ->method('createCartClaimer')
+            ->willReturn($this->cartClaimerMock);
 
-        $this->collaborativeCartCreatorMock->expects($this->atLeastOnce())
-            ->method('claimCart')
-            ->with($this->restCollaborativeCartRequestAttributesTransferMock)
-            ->willReturn($this->claimCartResponseTransferMock);
+        $this->cartClaimerMock->expects(static::atLeastOnce())
+            ->method('claim')
+            ->with($this->restClaimCartRequestTransferMock)
+            ->willReturn($this->restClaimCartResponseTransferMock);
 
-        $claimCartResponseTransfer = $this->collaborativeCartsRestApiFacade
-            ->claimCart($this->restCollaborativeCartRequestAttributesTransferMock);
-
-        $this->assertInstanceOf(
-            ClaimCartResponseTransfer::class,
-            $claimCartResponseTransfer
+        static::assertEquals(
+            $this->restClaimCartResponseTransferMock,
+            $this->facade->claimCart($this->restClaimCartRequestTransferMock)
         );
+    }
 
-        $this->assertEquals(
-            $this->claimCartResponseTransferMock,
-            $claimCartResponseTransfer
+    /**
+     * @return void
+     */
+    public function testReleaseCart(): void
+    {
+        $this->businessFactoryMock->expects(static::atLeastOnce())
+            ->method('createCartReleaser')
+            ->willReturn($this->cartReleaserMock);
+
+        $this->cartReleaserMock->expects(static::atLeastOnce())
+            ->method('release')
+            ->with($this->restReleaseCartRequestTransferMock)
+            ->willReturn($this->restReleaseCartResponseTransferMock);
+
+        static::assertEquals(
+            $this->restReleaseCartResponseTransferMock,
+            $this->facade->releaseCart($this->restReleaseCartRequestTransferMock)
         );
     }
 }

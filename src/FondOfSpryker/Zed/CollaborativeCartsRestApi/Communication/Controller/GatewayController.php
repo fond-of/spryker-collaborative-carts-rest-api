@@ -2,8 +2,10 @@
 
 namespace FondOfSpryker\Zed\CollaborativeCartsRestApi\Communication\Controller;
 
-use Generated\Shared\Transfer\ClaimCartResponseTransfer;
-use Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer;
+use Generated\Shared\Transfer\RestClaimCartRequestTransfer;
+use Generated\Shared\Transfer\RestClaimCartResponseTransfer;
+use Generated\Shared\Transfer\RestReleaseCartRequestTransfer;
+use Generated\Shared\Transfer\RestReleaseCartResponseTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
 /**
@@ -12,13 +14,24 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 class GatewayController extends AbstractGatewayController
 {
     /**
-     * @param \Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestClaimCartRequestTransfer $restClaimCartRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\ClaimCartResponseTransfer
+     * @return \Generated\Shared\Transfer\RestClaimCartResponseTransfer
      */
     public function claimCartAction(
-        RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
-    ): ClaimCartResponseTransfer {
-        return $this->getFacade()->claimCart($restCollaborativeCartRequestAttributesTransfer);
+        RestClaimCartRequestTransfer $restClaimCartRequestTransfer
+    ): RestClaimCartResponseTransfer {
+        return $this->getFacade()->claimCart($restClaimCartRequestTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RestReleaseCartRequestTransfer $restReleaseCartRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestReleaseCartResponseTransfer
+     */
+    public function releaseCartAction(
+        RestReleaseCartRequestTransfer $restReleaseCartRequestTransfer
+    ): RestReleaseCartResponseTransfer {
+        return $this->getFacade()->releaseCart($restReleaseCartRequestTransfer);
     }
 }

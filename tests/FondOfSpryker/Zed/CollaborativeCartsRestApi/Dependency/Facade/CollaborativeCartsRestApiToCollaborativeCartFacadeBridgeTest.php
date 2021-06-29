@@ -6,14 +6,11 @@ use Codeception\Test\Unit;
 use FondOfSpryker\Zed\CollaborativeCart\Business\CollaborativeCartFacadeInterface;
 use Generated\Shared\Transfer\ClaimCartRequestTransfer;
 use Generated\Shared\Transfer\ClaimCartResponseTransfer;
+use Generated\Shared\Transfer\ReleaseCartRequestTransfer;
+use Generated\Shared\Transfer\ReleaseCartResponseTransfer;
 
 class CollaborativeCartsRestApiToCollaborativeCartFacadeBridgeTest extends Unit
 {
-    /**
-     * @var \FondOfSpryker\Zed\CollaborativeCartsRestApi\Dependency\Facade\CollaborativeCartsRestApiToCollaborativeCartFacadeBridge
-     */
-    protected $collaborativeCartsRestApiToCollaborativeCartFacadeBridge;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Quote\Business\QuoteFacade
      */
@@ -27,7 +24,22 @@ class CollaborativeCartsRestApiToCollaborativeCartFacadeBridgeTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\ClaimCartResponseTransfer
      */
-    protected $claimCartResponseTransfer;
+    protected $claimCartResponseTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\ReleaseCartRequestTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $releaseCartRequestTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\ReleaseCartResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $releaseCartResponseTransferMock;
+
+    /**
+     * @var \FondOfSpryker\Zed\CollaborativeCartsRestApi\Dependency\Facade\CollaborativeCartsRestApiToCollaborativeCartFacadeBridge
+     */
+    protected $collaborativeCartsRestApiToCollaborativeCartFacadeBridge;
 
     /**
      * @return void
@@ -44,7 +56,15 @@ class CollaborativeCartsRestApiToCollaborativeCartFacadeBridgeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->claimCartResponseTransfer = $this->getMockBuilder(ClaimCartResponseTransfer::class)
+        $this->claimCartResponseTransferMock = $this->getMockBuilder(ClaimCartResponseTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->releaseCartRequestTransferMock = $this->getMockBuilder(ReleaseCartRequestTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->releaseCartResponseTransferMock = $this->getMockBuilder(ReleaseCartResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -57,22 +77,31 @@ class CollaborativeCartsRestApiToCollaborativeCartFacadeBridgeTest extends Unit
      */
     public function testClaimCart(): void
     {
-        $this->collaborativeCartFacadeMock->expects(self::atLeastOnce())
+        $this->collaborativeCartFacadeMock->expects(static::atLeastOnce())
             ->method('claimCart')
             ->with($this->claimCartRequestTransferMock)
-            ->willReturn($this->claimCartResponseTransfer);
+            ->willReturn($this->claimCartResponseTransferMock);
 
-        $claimCartResponseTransfer = $this->collaborativeCartsRestApiToCollaborativeCartFacadeBridge
-            ->claimCart($this->claimCartRequestTransferMock);
-
-        $this->assertInstanceOf(
-            ClaimCartResponseTransfer::class,
-            $claimCartResponseTransfer
+        static::assertEquals(
+            $this->claimCartResponseTransferMock,
+            $this->collaborativeCartsRestApiToCollaborativeCartFacadeBridge->claimCart($this->claimCartRequestTransferMock)
         );
+    }
 
-        $this->assertEquals(
-            $this->claimCartResponseTransfer,
-            $claimCartResponseTransfer
+    /**
+     * @return void
+     */
+    public function testReleaseCart(): void
+    {
+        $this->collaborativeCartFacadeMock->expects(static::atLeastOnce())
+            ->method('releaseCart')
+            ->with($this->releaseCartRequestTransferMock)
+            ->willReturn($this->releaseCartResponseTransferMock);
+
+        static::assertEquals(
+            $this->releaseCartResponseTransferMock,
+            $this->collaborativeCartsRestApiToCollaborativeCartFacadeBridge
+                ->releaseCart($this->releaseCartRequestTransferMock)
         );
     }
 }

@@ -3,8 +3,10 @@
 namespace FondOfSpryker\Client\CollaborativeCartsRestApi\Zed;
 
 use FondOfSpryker\Client\CollaborativeCartsRestApi\Dependency\Client\CollaborativeCartsRestApiToZedRequestClientInterface;
-use Generated\Shared\Transfer\ClaimCartResponseTransfer;
-use Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer;
+use Generated\Shared\Transfer\RestClaimCartRequestTransfer;
+use Generated\Shared\Transfer\RestClaimCartResponseTransfer;
+use Generated\Shared\Transfer\RestReleaseCartRequestTransfer;
+use Generated\Shared\Transfer\RestReleaseCartResponseTransfer;
 
 class CollaborativeCartsRestApiStub implements CollaborativeCartsRestApiStubInterface
 {
@@ -22,19 +24,35 @@ class CollaborativeCartsRestApiStub implements CollaborativeCartsRestApiStubInte
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestClaimCartRequestTransfer $restClaimCartRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\ClaimCartResponseTransfer
+     * @return \Generated\Shared\Transfer\RestClaimCartResponseTransfer
      */
     public function claimCart(
-        RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
-    ): ClaimCartResponseTransfer {
-        /** @var \Generated\Shared\Transfer\ClaimCartResponseTransfer $claimCartResponseTransfer */
-        $claimCartResponseTransfer = $this->zedRequestClient->call(
+        RestClaimCartRequestTransfer $restClaimCartRequestTransfer
+    ): RestClaimCartResponseTransfer {
+        /** @var \Generated\Shared\Transfer\RestClaimCartResponseTransfer $claimCartResponseTransfer */
+        $restClaimCartResponseTransfer = $this->zedRequestClient->call(
             '/collaborative-carts-rest-api/gateway/claim-cart',
-            $restCollaborativeCartRequestAttributesTransfer
+            $restClaimCartRequestTransfer
         );
 
-        return $claimCartResponseTransfer;
+        return $restClaimCartResponseTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\RestReleaseCartRequestTransfer $restReleaseCartRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestReleaseCartResponseTransfer
+     */
+    public function releaseCart(RestReleaseCartRequestTransfer $restReleaseCartRequestTransfer): RestReleaseCartResponseTransfer
+    {
+        /** @var \Generated\Shared\Transfer\RestReleaseCartResponseTransfer $releaseCartResponseTransfer */
+        $restReleaseCartResponseTransfer = $this->zedRequestClient->call(
+            '/collaborative-carts-rest-api/gateway/release-cart',
+            $restReleaseCartRequestTransfer
+        );
+
+        return $restReleaseCartResponseTransfer;
     }
 }

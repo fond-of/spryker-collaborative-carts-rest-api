@@ -2,7 +2,7 @@
 
 namespace FondOfSpryker\Glue\CollaborativeCartsRestApi\Controller;
 
-use Generated\Shared\Transfer\RestCollaborativeCartsAttributesTransfer;
+use Generated\Shared\Transfer\RestCollaborativeCartsRequestAttributesTransfer;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface;
 use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Spryker\Glue\Kernel\Controller\AbstractController;
@@ -15,16 +15,16 @@ class CollaborativeCartsResourceController extends AbstractController
 {
     /**
      * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\RestCollaborativeCartsAttributesTransfer $restCollaborativeCartsAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestCollaborativeCartsRequestAttributesTransfer $restCollaborativeCartsRequestAttributesTransfer
      *
      * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
      */
     public function postAction(
         RestRequestInterface $restRequest,
-        RestCollaborativeCartsAttributesTransfer $restCollaborativeCartsAttributesTransfer
+        RestCollaborativeCartsRequestAttributesTransfer $restCollaborativeCartsRequestAttributesTransfer
     ): RestResponseInterface {
         return $this->getFactory()
-            ->createCollaborativeCartCreator()
-            ->create($restRequest, $restCollaborativeCartsAttributesTransfer);
+            ->createCollaborativeCartProcessor()
+            ->process($restRequest, $restCollaborativeCartsRequestAttributesTransfer);
     }
 }

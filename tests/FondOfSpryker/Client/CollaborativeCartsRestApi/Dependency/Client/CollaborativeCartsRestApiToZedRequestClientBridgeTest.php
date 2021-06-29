@@ -49,17 +49,12 @@ class CollaborativeCartsRestApiToZedRequestClientBridgeTest extends Unit
     {
         $url = '';
 
-        $this->zedRequestClientMock->expects(self::atLeastOnce())
+        $this->zedRequestClientMock->expects(static::atLeastOnce())
             ->method('call')
             ->with($url, $this->transferMock)
             ->willReturn($this->transferMock);
 
         $transfer = $this->collaborativeCartsRestApiToZedRequestClientBridge->call($url, $this->transferMock);
-
-        $this->assertInstanceOf(
-            TransferInterface::class,
-            $transfer
-        );
 
         $this->assertEquals($this->transferMock, $transfer);
     }
