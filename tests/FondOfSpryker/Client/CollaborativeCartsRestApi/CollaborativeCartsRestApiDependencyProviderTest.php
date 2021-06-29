@@ -67,17 +67,16 @@ class CollaborativeCartsRestApiDependencyProviderTest extends Unit
      */
     public function testProvideServiceLayerDependencies(): void
     {
-
-        $this->containerMock->expects(self::atLeastOnce())
+        $this->containerMock->expects(static::atLeastOnce())
             ->method('getLocator')
             ->willReturn($this->locatorMock);
 
-        $this->locatorMock->expects(self::atLeastOnce())
+        $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
             ->with('zedRequest')
             ->willReturn($this->bundleProxyMock);
 
-        $this->bundleProxyMock->expects(self::atLeastOnce())
+        $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
             ->with('client')
             ->willReturn($this->zedRequestClientMock);
@@ -86,9 +85,9 @@ class CollaborativeCartsRestApiDependencyProviderTest extends Unit
             $this->containerMock
         );
 
-        self::assertEquals($this->containerMock, $container);
+        static::assertEquals($this->containerMock, $container);
 
-        self::assertInstanceOf(
+        static::assertInstanceOf(
             CollaborativeCartsRestApiToZedRequestClientBridge::class,
             $container[CollaborativeCartsRestApiDependencyProvider::CLIENT_ZED_REQUEST]
         );

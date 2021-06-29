@@ -3,7 +3,8 @@
 namespace FondOfSpryker\Zed\CollaborativeCartsRestApi\Business;
 
 use Codeception\Test\Unit;
-use FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\CollaborativeCart\CollaborativeCartCreatorInterface;
+use FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\Claimer\CartClaimer;
+use FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\Releaser\CartReleaser;
 use FondOfSpryker\Zed\CollaborativeCartsRestApi\CollaborativeCartsRestApiDependencyProvider;
 use FondOfSpryker\Zed\CollaborativeCartsRestApi\Dependency\Facade\CollaborativeCartsRestApiToCollaborativeCartFacadeInterface;
 use FondOfSpryker\Zed\CollaborativeCartsRestApi\Dependency\Facade\CollaborativeCartsRestApiToQuoteFacadeInterface;
@@ -29,7 +30,7 @@ class CollaborativeCartsRestApiBusinessFactoryTest extends Unit
     /**
      * @var \FondOfSpryker\Zed\CollaborativeCartsRestApi\Business\CollaborativeCartsRestApiBusinessFactory
      */
-    protected $collaborativeCartsRestApiBusinessFactory;
+    protected $businessFactory;
 
     /**
      * @return void
@@ -42,43 +43,65 @@ class CollaborativeCartsRestApiBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->quoteFacadeMock = $this
-            ->getMockBuilder(CollaborativeCartsRestApiToQuoteFacadeInterface::class)
+        $this->quoteFacadeMock = $this->getMockBuilder(CollaborativeCartsRestApiToQuoteFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->collaborativeCartFacadeMock = $this
-            ->getMockBuilder(CollaborativeCartsRestApiToCollaborativeCartFacadeInterface::class)
+        $this->collaborativeCartFacadeMock = $this->getMockBuilder(CollaborativeCartsRestApiToCollaborativeCartFacadeInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->collaborativeCartsRestApiBusinessFactory = new CollaborativeCartsRestApiBusinessFactory();
-        $this->collaborativeCartsRestApiBusinessFactory->setContainer($this->containerMock);
+        $this->businessFactory = new CollaborativeCartsRestApiBusinessFactory();
+        $this->businessFactory->setContainer($this->containerMock);
     }
 
     /**
      * @return void
      */
-    public function testCreateCollaborativeCartCreator(): void
+    public function testCreateCartClaimer(): void
     {
-        $this->containerMock->expects($this->atLeastOnce())
+        $this->containerMock->expects(static::atLeastOnce())
             ->method('has')
             ->willReturn(true);
 
-        $this->containerMock->expects($this->atLeastOnce())
+        $this->containerMock->expects(static::atLeastOnce())
             ->method('get')
             ->withConsecutive(
-                [CollaborativeCartsRestApiDependencyProvider::FACADE_COLLABORATIVE_CART],
-                [CollaborativeCartsRestApiDependencyProvider::FACADE_QUOTE]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->collaborativeCartFacadeMock,
-                $this->quoteFacadeMock
+                [CollaborativeCartsRestApiDependencyProvider::FACADE_QUOTE],
+                [CollaborativeCartsRestApiDependencyProvider::FACADE_COLLABORATIVE_CART]
+            )->willReturnOnConsecutiveCalls(
+                $this->quoteFacadeMock,
+                $this->collaborativeCartFacadeMock
             );
 
-        $this->assertInstanceOf(
-            CollaborativeCartCreatorInterface::class,
-            $this->collaborativeCartsRestApiBusinessFactory->createCollaborativeCartCreator()
+        static::assertInstanceOf(
+            CartClaimer::class,
+            $this->businessFactory->createCartClaimer()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateCartReleaser(): void
+    {
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects(static::atLeastOnce())
+            ->method('get')
+            ->withConsecutive(
+                [CollaborativeCartsRestApiDependencyProvider::FACADE_QUOTE],
+                [CollaborativeCartsRestApiDependencyProvider::FACADE_COLLABORATIVE_CART]
+            )->willReturnOnConsecutiveCalls(
+                $this->quoteFacadeMock,
+                $this->collaborativeCartFacadeMock
+            );
+
+        static::assertInstanceOf(
+            CartReleaser::class,
+            $this->businessFactory->createCartReleaser()
         );
     }
 }

@@ -3,6 +3,8 @@
 namespace FondOfSpryker\Zed\CollaborativeCartsRestApi;
 
 use Codeception\Test\Unit;
+use FondOfSpryker\Zed\CollaborativeCart\Business\CollaborativeCartFacadeInterface;
+use FondOfSpryker\Zed\CollaborativeCartsRestApi\Dependency\Facade\CollaborativeCartsRestApiToCollaborativeCartFacadeBridge;
 use FondOfSpryker\Zed\CollaborativeCartsRestApi\Dependency\Facade\CollaborativeCartsRestApiToQuoteFacadeBridge;
 use Spryker\Shared\Kernel\BundleProxy;
 use Spryker\Zed\Kernel\Container;
@@ -11,11 +13,6 @@ use Spryker\Zed\Quote\Business\QuoteFacadeInterface;
 
 class CollaborativeCartsRestApiDependencyProviderTest extends Unit
 {
-    /**
-     * @var \FondOfSpryker\Zed\CollaborativeCartsRestApi\CollaborativeCartsRestApiDependencyProvider
-     */
-    protected $collaborativeCartsRestApiDependencyProvider;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Kernel\Container
      */
@@ -35,6 +32,16 @@ class CollaborativeCartsRestApiDependencyProviderTest extends Unit
      * @var \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Quote\Business\QuoteFacadeInterface
      */
     protected $quoteFacadeMock;
+
+    /**
+     * @var \FondOfSpryker\Zed\CollaborativeCart\Business\CollaborativeCartFacadeInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $collaborativeCartFacadeMock;
+
+    /**
+     * @var \FondOfSpryker\Zed\CollaborativeCartsRestApi\CollaborativeCartsRestApiDependencyProvider
+     */
+    protected $collaborativeCartsRestApiDependencyProvider;
 
     /**
      * @return void
@@ -59,6 +66,10 @@ class CollaborativeCartsRestApiDependencyProviderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->collaborativeCartFacadeMock = $this->getMockBuilder(CollaborativeCartFacadeInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->collaborativeCartsRestApiDependencyProvider = new CollaborativeCartsRestApiDependencyProvider();
     }
 
@@ -67,30 +78,37 @@ class CollaborativeCartsRestApiDependencyProviderTest extends Unit
      */
     public function testProvideBusinessLayerDependencies(): void
     {
-        $this->containerMock->expects($this->atLeastOnce())
+        $this->containerMock->expects(static::atLeastOnce())
             ->method('getLocator')
             ->willReturn($this->locatorMock);
 
-        $this->locatorMock->expects($this->atLeastOnce())
+        $this->locatorMock->expects(static::atLeastOnce())
             ->method('__call')
-            ->withConsecutive(['quote'])
+            ->withConsecutive(['quote'], ['collaborativeCart'])
             ->willReturn($this->bundleProxyMock);
 
-        $this->bundleProxyMock->expects($this->atLeastOnce())
+        $this->bundleProxyMock->expects(static::atLeastOnce())
             ->method('__call')
             ->with('facade')
             ->willReturnOnConsecutiveCalls(
-                $this->quoteFacadeMock
+                $this->quoteFacadeMock,
+                $this->collaborativeCartFacadeMock
             );
 
         $container = $this->collaborativeCartsRestApiDependencyProvider->provideBusinessLayerDependencies(
             $this->containerMock
         );
 
-        $this->assertEquals($this->containerMock, $container);
-        $this->assertInstanceOf(
+        static::assertEquals($this->containerMock, $container);
+
+        static::assertInstanceOf(
             CollaborativeCartsRestApiToQuoteFacadeBridge::class,
             $container[CollaborativeCartsRestApiDependencyProvider::FACADE_QUOTE]
+        );
+
+        static::assertInstanceOf(
+            CollaborativeCartsRestApiToCollaborativeCartFacadeBridge::class,
+            $container[CollaborativeCartsRestApiDependencyProvider::FACADE_COLLABORATIVE_CART]
         );
     }
 }

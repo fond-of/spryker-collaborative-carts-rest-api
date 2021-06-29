@@ -22,9 +22,8 @@ class CollaborativeCartsRestApiDependencyProvider extends AbstractBundleDependen
         $container = parent::provideBusinessLayerDependencies($container);
 
         $container = $this->addQuoteFacade($container);
-        $container = $this->addCollaborativeCartFacade($container);
 
-        return $container;
+        return $this->addCollaborativeCartFacade($container);
     }
 
     /**

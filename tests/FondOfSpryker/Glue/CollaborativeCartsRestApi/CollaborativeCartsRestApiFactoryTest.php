@@ -5,6 +5,8 @@ namespace FondOfSpryker\Glue\CollaborativeCartsRestApi;
 use Codeception\Test\Unit;
 use FondOfSpryker\Client\CollaborativeCartsRestApi\CollaborativeCartsRestApiClient;
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\CollaborativeCart\CollaborativeCartCreatorInterface;
+use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\CollaborativeCart\CollaborativeCartProcessor;
+use FondOfSpryker\Glue\CollaborativeCartsRestApi\Processor\CollaborativeCart\CollaborativeCartProcessorInterface;
 use Spryker\Client\Kernel\AbstractClient;
 use Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface;
 use Spryker\Glue\Kernel\Container;
@@ -99,11 +101,11 @@ class CollaborativeCartsRestApiFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testCreateCollaborativeCartCreator(): void
+    public function testCreateCollaborativeCartProcessor(): void
     {
         $this->assertInstanceOf(
-            CollaborativeCartCreatorInterface::class,
-            $this->collaborativeCartsRestApiFactory->createCollaborativeCartCreator()
+            CollaborativeCartProcessor::class,
+            $this->collaborativeCartsRestApiFactory->createCollaborativeCartProcessor()
         );
     }
 }

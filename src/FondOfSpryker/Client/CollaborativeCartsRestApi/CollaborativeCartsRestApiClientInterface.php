@@ -2,23 +2,40 @@
 
 namespace FondOfSpryker\Client\CollaborativeCartsRestApi;
 
-use Generated\Shared\Transfer\ClaimCartResponseTransfer;
-use Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer;
+use Generated\Shared\Transfer\RestClaimCartRequestTransfer;
+use Generated\Shared\Transfer\RestClaimCartResponseTransfer;
+use Generated\Shared\Transfer\RestReleaseCartRequestTransfer;
+use Generated\Shared\Transfer\RestReleaseCartResponseTransfer;
 
 interface CollaborativeCartsRestApiClientInterface
 {
     /**
      * Specification:
-     * - take over the cart
-     * - Makes Zed request.
+     * - Claims cart
+     * - Makes zed request.
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestClaimCartRequestTransfer $restClaimCartRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\ClaimCartResponseTransfer
+     * @return \Generated\Shared\Transfer\RestClaimCartResponseTransfer
      */
     public function claimCart(
-        RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
-    ): ClaimCartResponseTransfer;
+        RestClaimCartRequestTransfer $restClaimCartRequestTransfer
+    ): RestClaimCartResponseTransfer;
+
+    /**
+     * Specification:
+     * - Releases cart
+     * - Makes zed request.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\RestReleaseCartRequestTransfer $restReleaseCartRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestReleaseCartResponseTransfer
+     */
+    public function releaseCart(
+        RestReleaseCartRequestTransfer $restReleaseCartRequestTransfer
+    ): RestReleaseCartResponseTransfer;
 }

@@ -58,24 +58,14 @@ class CollaborativeCartsRestApiToQuoteFacadeBridgeTest extends Unit
      */
     public function testFindQuoteByUuid(): void
     {
-        $this->quoteFacadeMock->expects(self::atLeastOnce())
+        $this->quoteFacadeMock->expects(static::atLeastOnce())
             ->method('findQuoteByUuid')
             ->with($this->quoteTransferMock)
             ->willReturn($this->quoteResponseTransferMock);
 
-        $quoteResponseTransfer = $this->collaborativeCartsRestApiToQuoteFacadeBridge
-            ->findQuoteByUuid(
-                $this->quoteTransferMock
-            );
-
-        $this->assertInstanceOf(
-            QuoteResponseTransfer::class,
-            $quoteResponseTransfer
-        );
-
-        $this->assertEquals(
+        static::assertEquals(
             $this->quoteResponseTransferMock,
-            $quoteResponseTransfer
+            $this->collaborativeCartsRestApiToQuoteFacadeBridge->findQuoteByUuid($this->quoteTransferMock)
         );
     }
 }

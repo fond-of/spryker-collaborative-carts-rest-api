@@ -2,8 +2,10 @@
 
 namespace FondOfSpryker\Client\CollaborativeCartsRestApi;
 
-use Generated\Shared\Transfer\ClaimCartResponseTransfer;
-use Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer;
+use Generated\Shared\Transfer\RestClaimCartRequestTransfer;
+use Generated\Shared\Transfer\RestClaimCartResponseTransfer;
+use Generated\Shared\Transfer\RestReleaseCartRequestTransfer;
+use Generated\Shared\Transfer\RestReleaseCartResponseTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**
@@ -16,17 +18,32 @@ class CollaborativeCartsRestApiClient extends AbstractClient implements Collabor
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestClaimCartRequestTransfer $restClaimCartRequestTransfer
      *
-     * @throws \Spryker\Client\Kernel\Exception\Container\ContainerKeyNotFoundException
-     *
-     * @return \Generated\Shared\Transfer\ClaimCartResponseTransfer
+     * @return \Generated\Shared\Transfer\RestClaimCartResponseTransfer
      */
     public function claimCart(
-        RestCollaborativeCartRequestAttributesTransfer $restCollaborativeCartRequestAttributesTransfer
-    ): ClaimCartResponseTransfer {
+        RestClaimCartRequestTransfer $restClaimCartRequestTransfer
+    ): RestClaimCartResponseTransfer {
         return $this->getFactory()
             ->createCollaborativeCartsRestApiStub()
-            ->claimCart($restCollaborativeCartRequestAttributesTransfer);
+            ->claimCart($restClaimCartRequestTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\RestReleaseCartRequestTransfer $restReleaseCartRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\RestReleaseCartResponseTransfer
+     */
+    public function releaseCart(
+        RestReleaseCartRequestTransfer $restReleaseCartRequestTransfer
+    ): RestReleaseCartResponseTransfer {
+        return $this->getFactory()
+            ->createCollaborativeCartsRestApiStub()
+            ->releaseCart($restReleaseCartRequestTransfer);
     }
 }

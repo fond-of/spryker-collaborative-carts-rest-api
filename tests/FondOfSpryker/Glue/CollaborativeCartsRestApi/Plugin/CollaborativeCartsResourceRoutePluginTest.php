@@ -5,7 +5,7 @@ namespace FondOfSpryker\Glue\CollaborativeCartsRestApi\Plugin;
 use Codeception\Test\Unit;
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\CollaborativeCartsRestApiConfig;
 use FondOfSpryker\Glue\CollaborativeCartsRestApi\Plugin\GlueApplication\CollaborativeCartsResourceRoutePlugin;
-use Generated\Shared\Transfer\RestCollaborativeCartsAttributesTransfer;
+use Generated\Shared\Transfer\RestCollaborativeCartsRequestAttributesTransfer;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface;
 
 class CollaborativeCartsResourceRoutePluginTest extends Unit
@@ -39,7 +39,7 @@ class CollaborativeCartsResourceRoutePluginTest extends Unit
      */
     public function testGetResourceType(): void
     {
-        self::assertEquals(
+        static::assertEquals(
             CollaborativeCartsRestApiConfig::RESOURCE_COLLABORATIVE_CARTS,
             $this->collaborativeCartsResourceRoutePlugin->getResourceType()
         );
@@ -50,12 +50,12 @@ class CollaborativeCartsResourceRoutePluginTest extends Unit
      */
     public function testConfigure(): void
     {
-        $this->resourceRouteCollectionMock->expects(self::atLeastOnce())
+        $this->resourceRouteCollectionMock->expects(static::atLeastOnce())
             ->method('addPost')
             ->with('post')
             ->willReturn($this->resourceRouteCollectionMock);
 
-        self::assertEquals(
+        static::assertEquals(
             $this->resourceRouteCollectionMock,
             $this->collaborativeCartsResourceRoutePlugin->configure($this->resourceRouteCollectionMock)
         );
@@ -66,7 +66,7 @@ class CollaborativeCartsResourceRoutePluginTest extends Unit
      */
     public function testGetController(): void
     {
-        self::assertEquals(
+        static::assertEquals(
             CollaborativeCartsRestApiConfig::CONTROLLER_COLLABORATIVE_CARTS,
             $this->collaborativeCartsResourceRoutePlugin->getController()
         );
@@ -77,8 +77,8 @@ class CollaborativeCartsResourceRoutePluginTest extends Unit
      */
     public function testGetResourceAttributesClassName(): void
     {
-        self::assertEquals(
-            RestCollaborativeCartsAttributesTransfer::class,
+        static::assertEquals(
+            RestCollaborativeCartsRequestAttributesTransfer::class,
             $this->collaborativeCartsResourceRoutePlugin->getResourceAttributesClassName()
         );
     }
