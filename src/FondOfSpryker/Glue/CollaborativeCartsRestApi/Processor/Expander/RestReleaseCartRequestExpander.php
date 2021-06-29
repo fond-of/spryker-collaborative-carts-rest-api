@@ -34,6 +34,12 @@ class RestReleaseCartRequestExpander implements RestReleaseCartRequestExpanderIn
         return $this->expandWithCustomer($restReleaseCartRequestTransfer, $restRequest);
     }
 
+    /**
+     * @param \Generated\Shared\Transfer\RestReleaseCartRequestTransfer $restReleaseCartRequestTransfer
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
+     * @return \Generated\Shared\Transfer\RestReleaseCartRequestTransfer
+     */
     protected function expandWithCustomer(
         RestReleaseCartRequestTransfer $restReleaseCartRequestTransfer,
         RestRequestInterface $restRequest

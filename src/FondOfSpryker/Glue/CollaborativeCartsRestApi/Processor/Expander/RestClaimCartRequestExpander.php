@@ -34,6 +34,12 @@ class RestClaimCartRequestExpander implements RestClaimCartRequestExpanderInterf
         return $this->expandWithCustomer($restClaimCartRequestTransfer, $restRequest);
     }
 
+    /**
+     * @param \Generated\Shared\Transfer\RestClaimCartRequestTransfer $restClaimCartRequestTransfer
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
+     *
+     * @return \Generated\Shared\Transfer\RestClaimCartRequestTransfer
+     */
     protected function expandWithCustomer(
         RestClaimCartRequestTransfer $restClaimCartRequestTransfer,
         RestRequestInterface $restRequest
