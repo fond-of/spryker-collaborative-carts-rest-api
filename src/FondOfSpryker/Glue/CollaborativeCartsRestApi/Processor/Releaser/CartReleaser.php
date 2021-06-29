@@ -78,7 +78,7 @@ class CartReleaser implements CartReleaserInterface
         }
 
         return $this->collaborativeCartRestResponseBuilder->createRestResponse(
-            CollaborativeCartsRestApiConfig::ACTION_CLAIM,
+            CollaborativeCartsRestApiConfig::ACTION_RELEASE,
             $quoteTransfer
         );
     }

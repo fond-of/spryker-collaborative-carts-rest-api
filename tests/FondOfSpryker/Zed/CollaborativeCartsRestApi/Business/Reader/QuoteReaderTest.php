@@ -69,7 +69,7 @@ class QuoteReaderTest extends Unit
             )->willReturn($this->quoteResponseTransferMock);
 
         $this->quoteResponseTransferMock->expects(static::atLeastOnce())
-            ->method('getQuote')
+            ->method('getQuoteTransfer')
             ->willReturn($this->quoteTransferMock);
 
         $this->quoteResponseTransferMock->expects(static::atLeastOnce())
@@ -100,7 +100,7 @@ class QuoteReaderTest extends Unit
             )->willReturn($this->quoteResponseTransferMock);
 
         $this->quoteResponseTransferMock->expects(static::atLeastOnce())
-            ->method('getQuote')
+            ->method('getQuoteTransfer')
             ->willReturn(null);
 
         $this->quoteResponseTransferMock->expects(static::never())

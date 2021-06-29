@@ -160,7 +160,7 @@ class CartReleaserTest extends Unit
 
         $this->collaborativeCartRestResponseBuilderMock->expects(static::atLeastOnce())
             ->method('createRestResponse')
-            ->with(CollaborativeCartsRestApiConfig::ACTION_CLAIM, $this->quoteTransferMock)
+            ->with(CollaborativeCartsRestApiConfig::ACTION_RELEASE, $this->quoteTransferMock)
             ->willReturn($this->restResponseMock);
 
         static::assertEquals(

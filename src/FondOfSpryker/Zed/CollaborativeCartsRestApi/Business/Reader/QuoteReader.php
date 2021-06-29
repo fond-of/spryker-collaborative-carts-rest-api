@@ -32,7 +32,7 @@ class QuoteReader implements QuoteReaderInterface
             (new QuoteTransfer())->setUuid($uuid)
         );
 
-        $quoteTransfer = $quoteResponseTransfer->getQuote();
+        $quoteTransfer = $quoteResponseTransfer->getQuoteTransfer();
 
         if ($quoteTransfer === null || $quoteResponseTransfer->getIsSuccessful() === false) {
             return null;
